@@ -54,10 +54,7 @@ public class BankUserServiceDBImpl implements BankUserService{
         );
         sendMail(
                 bankUser.getEmail(),
-                String.format(
-                        MailServiceString.OTP_MESSAGE_BODY,
-                        token
-                )
+                token
         );
         return bankUser;
     }
@@ -70,6 +67,7 @@ public class BankUserServiceDBImpl implements BankUserService{
     private void sendMail(String email, String token) {
         bankEmailService.sendSimpleMessage(
                 email,
+                MailServiceString.OTP_SUBJECT,
                 String.format(
                         MailServiceString.OTP_LINK_BODY,
                         token
