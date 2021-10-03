@@ -3,6 +3,7 @@ package com.enigma.bankenigma.service.account;
 import com.enigma.bankenigma.custom.UserCredential;
 import com.enigma.bankenigma.entity.UserAccount;
 import com.enigma.bankenigma.repository.UserAccountRepository;
+import com.enigma.bankenigma.service.ewallet.EWalletService;
 import com.enigma.bankenigma.service.user.detail.BankUserDetailService;
 import com.enigma.bankenigma.string.properties.TokenString;
 import com.enigma.bankenigma.string.properties.ResponseString;
@@ -22,6 +23,9 @@ import java.util.Map;
 public class UserAccountServiceDBImpl implements UserAccountService {
     @Autowired
     UserAccountRepository userAccountRepository;
+
+    @Autowired
+    EWalletService eWalletService;
 
     @Autowired
     BankUserDetailService bankUserDetailService;
