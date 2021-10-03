@@ -1,14 +1,14 @@
-package com.enigma.bankenigma.service.bank_user_services;
+package com.enigma.bankenigma.service.user;
 
 import com.enigma.bankenigma.entity.BankUser;
 import com.enigma.bankenigma.entity.UserAccount;
 import com.enigma.bankenigma.repository.BankUserRepository;
-import com.enigma.bankenigma.service.account_services.UserAccountService;
-import com.enigma.bankenigma.service.bank_user_detail_services.BankUserDetailService;
-import com.enigma.bankenigma.service.mail_services.BankEmailService;
-import com.enigma.bankenigma.string_properties.MailServiceString;
-import com.enigma.bankenigma.string_properties.ResponseString;
-import com.enigma.bankenigma.string_properties.StatusString;
+import com.enigma.bankenigma.service.account.UserAccountService;
+import com.enigma.bankenigma.service.user.detail.BankUserDetailService;
+import com.enigma.bankenigma.service.mail.BankEmailService;
+import com.enigma.bankenigma.string.properties.MailServiceString;
+import com.enigma.bankenigma.string.properties.ResponseString;
+import com.enigma.bankenigma.string.properties.StatusString;
 import com.enigma.bankenigma.utils.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,17 +46,24 @@ public class BankUserServiceDBImpl implements BankUserService{
     @Override
     public BankUser create(BankUser bankUser) {
         String password = bankUser.getPassword();
-        bankUser.setPassword(passwordEncoder.encode(bankUser.getPassword()));
-        bankUserRepository.save(bankUser);
+        saveBankUser(bankUser);
         String token = getToken(
                 bankUser.getUsername(),
                 password
         );
         sendMail(
                 bankUser.getEmail(),
-                token
+                String.format(
+                        MailServiceString.OTP_LINK_BODY,
+                        token
+                )
         );
         return bankUser;
+    }
+
+    private void saveBankUser(BankUser bankUser) {
+        bankUser.setPassword(passwordEncoder.encode(bankUser.getPassword()));
+        bankUserRepository.save(bankUser);
     }
 
     @Override
@@ -64,14 +71,15 @@ public class BankUserServiceDBImpl implements BankUserService{
         return bankUserRepository.findById(id).get();
     }
 
-    private void sendMail(String email, String token) {
+    private void sendMail(String email, String tokenUrl) {
         bankEmailService.sendSimpleMessage(
                 email,
                 MailServiceString.OTP_SUBJECT,
                 String.format(
-                        MailServiceString.OTP_LINK_BODY,
-                        token
-                ));
+                        MailServiceString.OTP_MESSAGE_BODY,
+                        tokenUrl
+                )
+        );
     }
 
     private String getToken(String username, String password) {

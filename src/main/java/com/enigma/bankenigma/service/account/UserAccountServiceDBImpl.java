@@ -1,11 +1,11 @@
-package com.enigma.bankenigma.service.account_services;
+package com.enigma.bankenigma.service.account;
 
 import com.enigma.bankenigma.custom.UserCredential;
 import com.enigma.bankenigma.entity.UserAccount;
 import com.enigma.bankenigma.repository.UserAccountRepository;
-import com.enigma.bankenigma.service.bank_user_detail_services.BankUserDetailService;
-import com.enigma.bankenigma.string_properties.TokenString;
-import com.enigma.bankenigma.string_properties.ResponseString;
+import com.enigma.bankenigma.service.user.detail.BankUserDetailService;
+import com.enigma.bankenigma.string.properties.TokenString;
+import com.enigma.bankenigma.string.properties.ResponseString;
 import com.enigma.bankenigma.utils.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,7 +55,14 @@ public class UserAccountServiceDBImpl implements UserAccountService {
     public UserAccount getAccountByUsername(String username) {
         return userAccountRepository.findByUsername(username).get();
     }
-    
+
+    @Override
+    public void saveProfileUserAccount(String id, String profilePath) {
+        UserAccount userAccount = checkAccount(id);
+        userAccount.setProfilePicture(profilePath);
+        userAccountRepository.save(userAccount);
+    }
+
     public Map<String, Object> getToken(UserCredential userCredential){
         UsernamePasswordAuthenticationToken userPassAuthToken =
                 new UsernamePasswordAuthenticationToken(

@@ -1,4 +1,4 @@
-package com.enigma.bankenigma.service.bank_user_services;
+package com.enigma.bankenigma.service.user;
 
 import com.enigma.bankenigma.entity.BankUser;
 import com.enigma.bankenigma.entity.UserAccount;

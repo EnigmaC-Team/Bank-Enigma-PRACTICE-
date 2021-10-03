@@ -1,7 +1,7 @@
 package com.enigma.bankenigma.configuration;
 
 import com.enigma.bankenigma.filter.StreamAuthFilter;
-import com.enigma.bankenigma.service.bank_user_detail_services.BankUserDetailService;
+import com.enigma.bankenigma.service.user.detail.BankUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,5 @@
-package com.enigma.bankenigma.service.mail_services;
+package com.enigma.bankenigma.service.mail;
 
-import com.enigma.bankenigma.string_properties.MailServiceString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

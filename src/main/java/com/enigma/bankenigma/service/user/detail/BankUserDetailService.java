@@ -1,9 +1,9 @@
-package com.enigma.bankenigma.service.bank_user_detail_services;
+package com.enigma.bankenigma.service.user.detail;
 
 import com.enigma.bankenigma.custom.BankUserDetails;
 import com.enigma.bankenigma.entity.BankUser;
 import com.enigma.bankenigma.repository.BankUserDetailRepository;
-import com.enigma.bankenigma.string_properties.ResponseString;
+import com.enigma.bankenigma.string.properties.ResponseString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,8 +1,8 @@
 package com.enigma.bankenigma.utils;
 
-import com.enigma.bankenigma.service.bank_user_detail_services.BankUserDetailService;
-import com.enigma.bankenigma.string_properties.ModeString;
-import com.enigma.bankenigma.string_properties.SecretString;
+import com.enigma.bankenigma.service.user.detail.BankUserDetailService;
+import com.enigma.bankenigma.string.properties.ModeString;
+import com.enigma.bankenigma.string.properties.SecretString;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;

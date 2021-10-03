@@ -25,8 +25,6 @@ public class BankUser {
     private String password;
     @JsonIgnore
     private String verifiedStatus;
-    @JsonIgnore
-    private String imgProfile;
 
     public BankUser() {
     }
@@ -71,20 +69,12 @@ public class BankUser {
         return verifiedStatus;
     }
 
-    public String getImgProfile() {
-        return imgProfile;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
 
     public void setVerifiedStatus(String verifiedStatus) {
         this.verifiedStatus = verifiedStatus;
-    }
-
-    public void setImgProfile(String imgProfile) {
-        this.imgProfile = imgProfile;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.enigma.bankenigma.string_properties;
+package com.enigma.bankenigma.string.properties;
 
 public class MailServiceString {
 

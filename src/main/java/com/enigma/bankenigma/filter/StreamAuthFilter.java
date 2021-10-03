@@ -1,9 +1,8 @@
 package com.enigma.bankenigma.filter;
 
-import com.enigma.bankenigma.string_properties.ModeString;
-import com.enigma.bankenigma.string_properties.ResponseString;
-import com.enigma.bankenigma.string_properties.StatusString;
-import com.enigma.bankenigma.string_properties.TokenString;
+import com.enigma.bankenigma.string.properties.ModeString;
+import com.enigma.bankenigma.string.properties.ResponseString;
+import com.enigma.bankenigma.string.properties.TokenString;
 import com.enigma.bankenigma.utils.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
