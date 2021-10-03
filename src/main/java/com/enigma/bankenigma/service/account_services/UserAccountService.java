@@ -8,4 +8,5 @@ import java.util.Map;
 
 public interface UserAccountService extends CRUDTemplate<UserAccount> {
     Map<String, Object> getToken(UserCredential userCredential);
+    UserAccount getAccountByUsername(String username);
 }

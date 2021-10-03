@@ -1,8 +1,8 @@
 package com.enigma.bankenigma.utils;
 
 import com.enigma.bankenigma.service.bank_user_detail_services.BankUserDetailService;
+import com.enigma.bankenigma.string_properties.ModeString;
 import com.enigma.bankenigma.string_properties.SecretString;
-import com.enigma.bankenigma.string_properties.StatusString;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -28,7 +28,7 @@ public class JwtTokenUtils {
     public String generateToken(UserDetails userDetails){
 
         Map<String, Object> claims = new HashMap<>();
-        claims.put(StatusString.ROLE, userDetails.getAuthorities());
+        claims.put(ModeString.ROLE, userDetails.getAuthorities());
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userDetails.getUsername())

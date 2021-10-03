@@ -12,14 +12,11 @@ public class BankEmailService{
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void sendSimpleMessage(String mailTo, String token){
+    public void sendSimpleMessage(String mailTo, String messageBody){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(mailTo);
         message.setSubject(MailServiceString.OTP_SUBJECT);
-        message.setText(String.format(
-                MailServiceString.OTP_MESSAGE_BODY,
-                token
-        ));
+        message.setText(messageBody);
         javaMailSender.send(message);
     }
 }

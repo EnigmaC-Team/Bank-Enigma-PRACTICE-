@@ -1,5 +1,6 @@
 package com.enigma.bankenigma.configuration;
 
+import com.enigma.bankenigma.filter.StreamAuthFilter;
 import com.enigma.bankenigma.service.bank_user_detail_services.BankUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
@@ -19,6 +21,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     BankUserDetailService bankUserDetailService;
+
+    @Autowired
+    StreamAuthFilter streamAuthFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -51,7 +56,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/userRegistration").permitAll()
                 .antMatchers("/authenticate/*").permitAll()
                 .antMatchers("/signIn").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+                .and().addFilterBefore(
+                        streamAuthFilter,
+                        UsernamePasswordAuthenticationFilter.class
+                );
 
         http.logout(
                 logout -> logout.logoutUrl("/logout")

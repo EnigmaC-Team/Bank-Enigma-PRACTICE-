@@ -54,9 +54,17 @@ public class BankUserServiceDBImpl implements BankUserService{
         );
         sendMail(
                 bankUser.getEmail(),
-                token
+                String.format(
+                        MailServiceString.OTP_MESSAGE_BODY,
+                        token
+                )
         );
         return bankUser;
+    }
+
+    @Override
+    public BankUser checkAccount(String id) {
+        return bankUserRepository.findById(id).get();
     }
 
     private void sendMail(String email, String token) {
@@ -80,13 +88,14 @@ public class BankUserServiceDBImpl implements BankUserService{
     }
 
     @Override
-    public BankUser checkAccount(String token) {
+    public UserAccount getUserAccount(String token) {
         validateTokenExpiration(token);
         UserDetails userDetails = jwtTokenUtils.parseToken(token);
         BankUser bankUser = bankUserDetailService.getBankUserByUsername(userDetails.getUsername());
         userAccountService.create(new UserAccount(bankUser));
         bankUser.setVerifiedStatus(StatusString.VERIFIED);
-        return bankUserRepository.save(bankUser);
+        bankUserRepository.save(bankUser);
+        return userAccountService.getAccountByUsername(bankUser.getUsername());
     }
 
     private void validateTokenExpiration(String token) {

@@ -4,8 +4,8 @@ import com.enigma.bankenigma.custom.UserCredential;
 import com.enigma.bankenigma.entity.UserAccount;
 import com.enigma.bankenigma.repository.UserAccountRepository;
 import com.enigma.bankenigma.service.bank_user_detail_services.BankUserDetailService;
+import com.enigma.bankenigma.string_properties.TokenString;
 import com.enigma.bankenigma.string_properties.ResponseString;
-import com.enigma.bankenigma.string_properties.StatusString;
 import com.enigma.bankenigma.utils.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,6 +38,11 @@ public class UserAccountServiceDBImpl implements UserAccountService {
         return userAccountRepository.save(userAccount);
     }
 
+    @Override
+    public UserAccount checkAccount(String id) {
+        return userAccountRepository.findById(id).get();
+    }
+
     private void validateUsernameIfExist(UserAccount userAccount) {
         if(userAccountRepository.findByUsername(userAccount.getUsername()).isPresent()){
             throw new ResponseStatusException(
@@ -47,7 +52,7 @@ public class UserAccountServiceDBImpl implements UserAccountService {
     }
 
     @Override
-    public UserAccount checkAccount(String username) {
+    public UserAccount getAccountByUsername(String username) {
         return userAccountRepository.findByUsername(username).get();
     }
     
@@ -68,7 +73,7 @@ public class UserAccountServiceDBImpl implements UserAccountService {
     private Map<String, Object> tokenWrapper(UserDetails userDetails) {
         String token = jwtTokenUtils.generateToken(userDetails);
         Map<String, Object> tokenWrapper = new HashMap<>();
-        tokenWrapper.put(StatusString.TOKEN, token);
+        tokenWrapper.put(TokenString.TOKEN, token);
         return tokenWrapper;
     }
 
