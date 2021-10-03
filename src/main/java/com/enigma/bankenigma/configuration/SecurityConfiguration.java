@@ -50,6 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/userRegistration").permitAll()
                 .antMatchers("/authenticate/*").permitAll()
+                .antMatchers("/signIn").permitAll()
                 .anyRequest().authenticated();
 
         http.logout(
